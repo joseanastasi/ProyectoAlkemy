@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Novedades</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css"
+	th:href="@{/css/admin.css}">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+<body>
+
+	<header th:insert="/template/template :: header"></header>
+	<div class="admin-container">
+		<h2 class="title">NOVEDADES</h2>
+		<br>
+		<div class="add-button">
+			<a th:href="@{/admin/novedades/createNews}"
+				class="btn btn-primary btn-lg"> <i class="fas fa-plus"></i>
+				Crear Novedad
+			</a>
+		</div>
+
+		<div class="count" th:if="${list.isEmpty()}">
+			<h3>No hay publicaciones registradas en la base de datos</h3>
+		</div>
+		<div class="table-responsive">
+			<table class="table" th:if="${!list.isEmpty()}">
+				<thead>
+					<tr>
+						<th scope="col">Titulo</th>
+						<th scope="col">Imagen</th>
+						<th scope="col">Categoria</th>
+						<th scope="col">Fecha de Publicación</th>
+						<th scope="col">Estado</th>
+						<th scope="col">Detalle</th>
+						<th scope="col">Editar</th>
+						<th scope="col">Eliminar</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr th:each="news:${list}">
+						<td th:text="${news.title}"></td>
+						<td th:if="${news.image != null}">
+							<div th:if="${news.image != ''}">
+								<img th:src="*{'data:image/jpeg;base64,'+{news.image}}"
+									style="width: 75px; height: 75px;" class="img-thumbnail">
+							</div>
+						</td>
+						<td th:text="${news.category}"></td>
+						<td th:text="${news.date}"></td>
+						<td th:if="${news.enabled==true}"><span class="badge">ACTIVA</span></td>
+						<td th:if="${news.enabled==false}"><span class="badge">INACTIVA</span></td>
+						<td><a class="btn btn-success btn-sm"
+							th:href="@{/admin/novedades/viewNews/{id} (id=${news.id})}"
+							title="Ver Novedad"> Detalle</a></td>
+						<td><a class="btn btn-info btn-sm"
+							th:href="@{/admin/novedades/edit/{id} (id=${news.id})}"
+							title="Editar Novedad"> Editar</a></td>
+						<td><a class="btn btn-danger btn-sm"
+							th:href="@{/admin/novedades/delete/{id} (id=${news.id})}"
+							title="Eliminar Novedad"
+							onclick="return confirm('¿Estas seguro de eliminar la Novedad?')">
+								Eliminar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div th:if="${last>1}" class="card-footer text-center mb-5">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<nav aria-label="Pagination">
+						<ul class="pagination justify-content-center">
+							<li class="page-item"
+								th:classappend="${previous==0 ? 'disabled' : ''}"><a
+								class="page-link"
+								th:href="@{|/admin/novedades/?page=${previous}|}"
+								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+									<span class="sr-only">Previous</span>
+							</a></li>
+							<li class="page-item" th:each="page:${pages}"
+								th:classappend="${current==page ? 'active' : ''}"><a
+								class="page-link" th:href="@{|/admin/novedades/?page=${page}|}"
+								th:text="${page}"></a></li>
+
+							<li class="page-item"
+								th:classappend="${current==last ? 'disabled' : ''}"><a
+								class="page-link" th:href="@{|/admin/novedades/?page=${next}|}"
+								aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+									class="sr-only">Next</span>
+							</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer th:insert="/template/template :: footer"></footer>
+</body>
+</html>

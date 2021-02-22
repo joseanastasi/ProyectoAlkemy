@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css"
+	th:href="@{/css/admin.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+<!--INCLUDE SUMMERNOTE CSS/JS-->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script>
+<title th:text="${title}"></title>
+<style>
+* {
+	box-sizing: border-box
+}
+
+button.help-button {
+	background-color: #4CAF50;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 7, 5%;
+	opacity: 0.9;
+}
+
+button:hover {
+	opacity: 1;
+}
+
+.deletebtn {
+	float: center;
+	width: 9%;
+	cursor: pointer;
+}
+
+/* Add a color to the delete button */
+.deletebtn {
+	background-color: #ccc;
+	color: black;
+}
+
+/* Add padding and center-align text to the container */
+.container {
+	padding: 16px;
+	text-align: center;
+}
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: #474e5d;
+	padding-top: 50px;
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 5% auto 15% auto;
+	/* 5% from the top, 15% from the bottom and centered */
+	border: 1px solid #888;
+	width: 80%; /* Could be more or less, depending on screen size */
+}
+
+hr {
+	border: 1px solid #f1f1f1;
+	margin-bottom: 25px;
+}
+
+.close {
+	position: absolute;
+	right: 35px;
+	top: 15px;
+	font-size: 40px;
+	font-weight: bold;
+	color: #f1f1f1;
+}
+
+.close:hover, .close:focus {
+	color: #f44336;
+	cursor: pointer;
+}
+
+.clearfix::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+@media screen and (max-width: 300px) {
+	.cancelbtn, .deletebtn {
+		width: 100%;
+	}
+}
+</style>
+</head>
+<body>
+
+	<header th:include="/template/template :: header"></header>
+	<div class="admin-container">
+		<br>
+		<div class="card bg-light">
+			<div class="card text-center">
+				<div class="card-header">
+					<h2 display="inline" class="title" th:text="${titleTable}"></h2>
+					<button class="help-button"
+						onclick="document.getElementById('id01').style.display='block' ">Necesitas
+						Ayuda?</button>
+
+				</div>
+				<div class="card-body">
+					<form th:action=@{/admin/novedades/saveNews} th:object=${news}
+						method="post" enctype="multipart/form-data">
+						<div class="form-group row">
+							<input type="hidden" th:field="*{id}" /> <input type="hidden"
+								th:field="*{image}" /> <label class="col-md-2" for="title">TITULO:</label>
+							<input type="text" th:field="*{title}"
+								class="form-control form-control-sm col-md-6"
+								placeholder="Titulo de la Novedad" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('title')}" th:errors=*{title}>
+							</small>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-md-2" for="shortContent">CONTENIDO:</label>
+							<textarea class="form-control form-control-sm col-md-6"
+								th:field="*{shortContent}" rows="5"
+								placeholder="Contenido corto de la Novedad"></textarea>
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('shortContent')}"
+								th:errors=*{shortContent}> </small>
+						</div>
+						<small class="form-text text-danger" th:text="${messageImageFile}">
+						</small>
+						<div class="form-group row">
+							<label class="col-md-2" for="image">IMAGEN:</label> <input
+								type="file" style="padding: .2rem;" name="file" id="imageFile"
+								accept="image/*" class="form-control form-control-sm col-md-8" />
+
+
+							<div th:if="${news.image != null}" class="col-md-5">
+								<div th:if="${news.image != ''}" class="col-md-5">
+									<h6>Imagen guardada</h6>
+									<img th:src="*{'data:image/jpeg;base64,'+{image}}"
+										style="width: 100px; height: 100px;">
+								</div>
+							</div>
+
+						</div>
+						<div class="form-group row">
+							<label class="col-md-2" for="content"> PUBLICACIÓN:</label>
+							<textarea th:field="*{content}"></textarea>
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('content')}" th:errors=*{content}>
+							</small>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-2" for="category">CATEGORIA:</label> <input
+								type="text" th:field="*{category}"
+								class="form-control form-control-sm col-md-6"
+								placeholder="Categoria de la Novedad" />
+						</div>
+
+						<div class="form-group row">
+							<label class="col-md-2" for="date">FECHA DE PUBLICACIÓN:</label>
+							<input class="form-control form-control-sm col-md-6" type="date"
+								th:field="*{date}" /><small class="form-text text-danger"
+								th:if="${#fields.hasErrors('date')}" th:errors=*{date}>
+							</small>
+						</div>
+						<div class="form-group row">
+							<label class="col-md-2" for="enabled">HABILITAR:</label>
+							<div class="form-check form-check-inline">
+								<input style="margin: 7px !important;" class="form-check-input"
+									th:field="*{enabled}" type="radio" name="enabled" id="enabled1"
+									value=1> <label class="form-check-label" for="enabled1">
+									SI </label> <input style="margin: 7px !important;"
+									class="form-check-input" th:field="*{enabled}" type="radio"
+									name="enabled" id="enabled2" value=0> <label
+									class="form-check-label" for="enabled2"> NO</label>
+							</div>
+						</div>
+						<div class="card-footer">
+							<input type="submit" class="btn btn-primary btn-sm"
+								value="Guardar" /> <a type="cancel"
+								class="btn btn-primary btn-sm" th:href=@{/admin/novedades/}>
+								Cancelar</a>
+						</div>
+
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div>
+		<br> <br>
+
+		<div id="id01" class="modal">
+			<span onclick="document.getElementById('id01').style.display='none'"
+				class="close" title="Close Modal">&times;</span>
+			<form class="modal-content" action="/action_page.php">
+				<div class="container">
+					<h1>Como subir una novedad</h1>
+					<p>Sección lista de novedades publicadas:</p>
+					<br>
+					<p>-La parte que se verá en miniatura será el título, la
+						descripción y la imagen, una vez las personas quieran acceder para
+						ver la publicación deberá dar click en la novedad.</p>
+					<br>
+					<p>Sección carga de novedades:</p>
+					<br>
+					<p>-Además de crear también se puede copiar y pegar una
+						publicación ya creada colocandola en el campo de publicación.</p>
+					<br>
+					<p>-Aquí se deberá cargar todos los datos en los campos, en la
+						parte de publicación se podrá cargar la misma con estilo al
+						paquete Microsoft Word. Esta permite cargar título, subtítulo,
+						descripción, contenido ,etc (separado del ya definido en los datos
+						de los campos), aparte de la cantidad de foto a elección .</p>
+					<br>
+					<p>-Como en las otras secciones de
+						carga(usuario,eventos,equipos,etc), esta tendrá la posibilidad de
+						borrar o editar la publicación ya creada con anterioridad, los
+						campos en la sección de carga de novedades son de carácter
+						obligatorio con el fin de no romper la estética en la lista de
+						novedades y en la publicación de la novedad.</p>
+					<div class="clearfix">
+						<button type="button" class="deletebtn"
+							onclick="document.getElementById('id01').style.display='none'">OK</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<footer class="mt-5" th:insert="/template/template :: footer"></footer>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#content').summernote({
+				height : 200,
+				minHeight : null,
+				maxHeight : null,
+			});
+
+		});
+	</script>
+	<script type="text/javascript">
+		const MAX_SIZE_BYTES = 4194304;
+		const $imageFile = document.querySelector("#imageFile");
+
+		$imageFile
+				.addEventListener(
+						"change",
+						function() {
+
+							var file = this.files[0];
+							if (file.size > MAX_SIZE_BYTES) {
+								const SIZE_MB = MAX_SIZE_BYTES / 1048576;
+								var sizeImageMB = (file.size / 1048576)
+										.toFixed(2);
+								alert(`El tamaño máximo permitido de la imagen es ${SIZE_MB}MB. La imagen cargada tiene un tamaño de ${sizeImageMB}MB`);
+								$imageFile.value = "";
+							}
+						});
+
+		var modal = document.getElementById('id01');
+
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+	</script>
+</body>
+</html>

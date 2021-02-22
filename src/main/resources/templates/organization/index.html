@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Organización</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+<body>
+	<header th:include="/template/template :: header"></header>
+	<div class="admin-container">
+		<h2 class="title">PROGRAMA PAAS</h2>
+		<br>
+
+		<div class="add-button" th:if="${organizations.isEmpty()}">
+			<a th:href="@{/admin/organizacion/save/0}" class="bbtn btn-primary btn-sm">
+				<i class="fas fa-plus"></i> Agregar Organización
+			</a>
+		</div>
+		
+		<div class="count" th:if="${organizations.isEmpty()}">
+			<h3>No hay organizaciones registradas en la base de datos</h3>
+		</div>
+				<div class="form-organization" th:each="organization : ${organizations}">
+	
+					<label for="">Nombre:</label>
+					<p class="admin-parr" th:text="${organization.name}"> </p>
+
+
+					<label for="">Visión:</label>
+					<p class="admin-parr"  th:text="${organization.vision}"> </p>
+
+					<label for="">Misión:</label>
+					<p class="admin-parr"  th:text="${organization.mission}"> </p>
+
+					<label for="">Email:</label>
+					<p class="admin-parr"  th:text="${organization.email}"> </p>
+
+					<label for="">Telefono:</label>
+					<p class="admin-parr"  th:text="${organization.phone}"> </p>
+					
+					<label for="">Dirección:</label>
+					<p class="admin-parr"  th:text="${organization.address}"> </p>
+
+
+					<label for="">Logo:</label>
+<div th:if="${organization.logo != ''}">
+	<img th:src="*{'data:image/jpeg;base64,'+{organization.logo}}" style="width: 80px; height: 80px;"
+		class="img-thumbnail">
+</div>
+				
+			<label for="name">Estado:</label>
+					<p th:if="${organization.active==true}"><span class="badge">
+						ACTIVA</span></p>
+					<p th:if="${organization.active==false}"><span class="badge">INACTIVA</span></p>
+	
+					
+					<div class="action-button">
+					<a class="btn btn-info btn-sm"
+						th:href="@{/admin/organizacion/save/{id}(id=${organization.id})}">Editar</a>
+				
+				</div>
+
+
+
+		
+	</div>
+
+	<footer th:replace="/template/template :: footer"></footer>
+</body>
+</html>

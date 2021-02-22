@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<title>Contribuidor</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="stylesheet" type="text/css" href="../js/select2/select2.min.css">
+</head>
+
+<body>
+<div th:replace="fragments :: header"></div>
+<div class="container-contact100">		
+		<div class="wrap-contact100">
+			<div class="contact100-form-title" style="background-image: url(../img/bg-01.jpg);">
+				<span class="contact100-form-title-1">
+					Contactate!
+				</span>
+
+				<span class="contact100-form-title-2">
+					Formulario de contacto con el staff del Programa PAAS
+				</span>
+			</div>
+
+			<form class="contact100-form" th:object=${contact} method="POST">
+				<div class="wrap-input100">
+					<span class="label-input100">Nombre:</span>
+					<input th:field="*{name}" class="input100" type="text" placeholder="Ingresa tu nombre">
+					<span class="focus-input100"></span>					
+				</div>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+				
+				<div class="wrap-input100">
+					<span class="label-input100">Apellido:</span>
+					<input th:field="*{surname}" class="input100" type="text" placeholder="Ingresa tu apellido">
+					<span class="focus-input100"></span>					
+				</div>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></small>
+
+				<div class="wrap-input100">
+					<span class="label-input100">Email:</span>
+					<input th:field="*{email}" class="input100" type="text" placeholder="Ingresa tu correo">
+					<span class="focus-input100"></span>
+				</div>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+
+				<div class="wrap-input100">
+					<span class="label-input100">Telefono:</span>
+					<input th:field="*{phone}" class="input100" type="text" placeholder="Ingresa tu numero telefonico">
+					<span class="focus-input100"></span>
+				</div>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+				
+				<div class="wrap-input100 input100-select">
+							<span class="label-input100" th:for="type">Provincia:</span>
+							<select th:field="*{province}" id="province" class="selection-2" style="width:385px">
+								<option th:each="province : ${provinces}"
+										th:text="${province.name}"
+										th:value="${province.id}"></option>
+    						</select>
+    						<span class="focus-input100"></span>
+				</div>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('province')}" th:errors="*{province}"></small>
+				
+				<div class="wrap-input100 input100-select">
+							<span class="label-input100" th:for="type">Localidad:</span>
+							<select th:field="*{location}" id="location" class="selection-2" style="width:385px">
+								<option th:value=null>Seleccione una Provincia</option>
+    						</select>
+    						<span class="focus-input100"></span>
+				</div>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></small>
+						
+				<div class="wrap-input100 input100-select">
+							<span class="label-input100" th:for="type">Tipo:</span>
+							<select th:field="*{type}" class="selection-2">
+								<option th:each="contributorType : ${contributorType}"
+										th:text="${contributorType.name}"
+										th:value="${contributorType}"></option>
+    						</select>
+    						<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100">
+					<span class="label-input100">Mensaje:</span>
+					<textarea th:field="*{message}" class="input100" name="message" placeholder="Dejanos un comentario..."></textarea>
+					<span class="focus-input100"></span>
+				</div>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></small>
+				
+				
+				
+				<div class="container-contact100-form-btn">
+					<button class="btn btn-success btn-block btn-lg mt-5">
+						<span>
+							Enviar
+							<i type="submit" class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+				<br><br>
+				<br><br>
+				<div><label th:text="${success}"></label></div>					
+			</form>	
+		</div>
+</div>
+<div id="dropDownSelect1"></div>	
+<div th:replace="fragments :: footer"></div>
+
+		<!-- jQuery -->
+	<div th:replace="fragments :: jquery"></div>
+
+<!--===============================================================================================-->
+	<script src="https://kit.fontawesome.com/a6d8df04b2.js" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="../js/location.js"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="../js/script.js"></script>
+<!--===============================================================================================-->
+	<script>
+		$(".selection-2").select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect1')
+		});
+	</script>
+<!--===============================================================================================-->
+</body>
+</html>

@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<h2>Equipo</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Correo Electronico</th>
+        <th>Telefono</th>
+        <th>Contenido</th>
+        <th>Imagen</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="team : ${team}">
+        <td th:text="${team.name}">
+        <td th:text="${team.surname}">
+        <td th:text="${team.email}">
+        <td th:text="${team.phone}">
+        <td th:text="${team.content}">
+        <td th:text="${team.image}">
+        <td><a class="btn btn-info" th:href="@{/programa_paas}">Cancelar</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+/*============= FOOTER =============*/
+.container-footer {
+	background-color: #303036;
+	color: whitesmoke;
+}
+
+.fa-phone {
+	margin-right: 12px;
+}
+
+.socials i {
+	margin-left: 15px;
+	color: whitesmoke;
+}
+
+.social i:hover {
+	background: black;
+}
+
+.fa-facebook:hover {
+	color: rgb(119, 115, 115);
+}
+
+.fa-youtube:hover {
+	color: rgb(119, 115, 115);
+}
+
+.fa-twitter:hover {
+	color: rgb(119, 115, 115);
+}
+
+.fa-instagram:hover {
+	color: rgb(119, 115, 115);
+}
+
+.fa-linkedin-in:hover {
+	color: rgb(119, 115, 115);
+}
+
+.newsletter .btn-primary {
+	background: whitesmoke;
+	border-style: none;
+	color: black;
+	font-weight: 500;
+}
+
+.newsletter .btn:hover {
+	background-color: rgb(119, 115, 115);
+}
+
+/*============= END OF FOOTER =============*/
+
+/*============= MEDIA QUERIES =============*/
+
+@media (max-width: 1920.98px) {
+	
+.section h4{
+	font-size:32px;
+}
+
+.section p{
+	font-size:17px;
+}
+	
+.section .btn-primary{
+	font-size:28px;
+}	
+.fa-1x{
+	margin-right: 5px;
+	font-size: 23px !important;
+}
+
+.fa-3x{
+font-size:60px;	
+}
+}
+@media (max-width: 1540.98px) {
+	
+	
+.section h4{
+	font-size:28px;
+}
+
+.section p{
+	font-size:15px;
+	margin-left: 5px;
+}
+	
+.section .btn-primary{
+	font-size:22px;
+}	
+.fa-1x{
+	margin-right: 5px;
+	margin-left: 5px;
+	font-size: 18px
+}
+
+.fa-3x{
+font-size:50px;	
+}
+  
+}
+
+@media (max-width: 1305.98px) {
+
+
+.section h4{
+	font-size:24px;
+}
+
+.section p{
+	font-size:15px;
+	margin-left: 5px;
+}
+	
+.section .btn-primary{
+	font-size:20px;
+}	
+
+}
+
+@media (max-width: 1124.00px) {
+
+
+.section h4{
+	font-size:20px;
+}
+
+.section p{
+	font-size:13px;
+	margin-left: 5px;
+}
+	
+.section .btn-primary{
+	font-size:18px;
+}	
+.fa-1x{
+	margin-right: 3px;
+	margin-left: 3px;
+	font-size: 16px
+}
+
+.fa-3x{
+font-size:40px;	
+}
+  
+	
+}
+@media (max-width: 950.00px) {
+	
+.section h4{
+	font-size:17px;
+}
+
+.section p{
+	font-size:13px;
+	margin-left: 5px;
+}
+	
+.section .btn-primary{
+	font-size:18px;
+}	
+.fa-1x{
+	margin-right: 3px;
+	margin-left: 3px;
+	font-size: 16px
+}
+
+.fa-3x{
+font-size:30px;	
+}
+  }
+
+@media (max-width: 770.00px) {
+	
+.section h4{
+	font-size:23px;
+}
+
+.section p{
+	font-size:18px;
+	margin-left: 5px;
+}
+	
+.section .btn-primary{
+	font-size:18px;
+}	
+.fa-1x{
+	margin-right: 3px;
+	margin-left: 3px;
+	font-size: 20px
+}
+
+.fa-3x{
+font-size:35px;	
+}
+
+
+  }
+  
+  @media (max-width: 500.00px) {
+	
+.section h4{
+	font-size:18px;
+}
+
+.section p{
+	font-size:15px;
+	margin-left: 5px;
+}
+	
+.section .btn-primary{
+	font-size:18px;
+}	
+.fa-1x{
+	margin-right: 3px;
+	margin-left: 3px;
+	font-size: 20px
+}
+
+.fa-3x{
+font-size:35px;	
+}
+
+
+  }
+  
+  
+  

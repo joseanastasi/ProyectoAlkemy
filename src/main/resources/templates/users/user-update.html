@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="css/style.css">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header th:insert="/template/template :: header"></header>
+    <div class="admin-container">
+  <br>
+  <h2 class="title">USUARIOS</h2>
+  <form class="admin-form" th:action="@{/admin/usuarios/update-user/{id}(id=${user.id})}" th:object="${user}" method="POST"
+    enctype="multipart/form-data">
+    <fieldset>
+         <input type="hidden" th:field="*{id}" name="id" id="id">
+        <label for="name">Nombre: </label>
+        <input required type="text" name="name" id="name" class="form-control" th:field="*{name}">
+        <small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+        <label for="email">Email: </label>
+        <input required type="email" name="email" id="email" class="form-control" th:field="*{email}">
+        <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+      
+      
+        <label for="username">Username: </label>
+        <input required type="text" name="username" id="username" class="form-control" th:field="*{username}">
+        <small class="form-text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+      
+      
+        <label for="password">Contraseña: </label>
+        <input required type="password" name="password" id="password" class="form-control" th:field="*{password}">
+        <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+   
+<br>
+  
+        <div class="action-button">
+          <a class="btn btn-secondary btn-sm" th:href="@{/admin/usuarios}">Cancelar</a>
+          <a class="btn btn-success btn-sm"> <button type="submit">Guardar</button></a>
+        </div>
+            </fieldset>
+      </form>
+      </div>
+
+  
+    <footer th:replace="/template/template :: footer"></footer>
+</body>
+
+</html>

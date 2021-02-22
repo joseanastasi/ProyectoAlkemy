@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Organización</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+
+<body>
+    <header th:include="/template/template :: header"></header>
+    <div class="admin-container">
+        <h2 class="title">CORREO PROGRAMA PAAS</h2>
+        <br>
+        <div class="form-organization" th:each="organization : ${organizations}">
+            <label for="">Servidor SMTP:</label>
+            <p  class="form-control" th:text="${organization.emailServer}"> </p>
+
+            <label for="">Puerto: </label>
+            <p  class="form-control"  th:text="${organization.emailServerPort}"> </p>
+
+            <label for="">Usuario:</label>
+            <p   class="form-control" th:text="${organization.emailUser}"> </p>
+
+            <label for="">Contraseña: </label>
+            <p  class="form-control"  th:text="${organization.emailPassword}"> </p>
+        
+                <div class="action-button">
+                    <a class="btn btn-info btn-sm" th:href="@{/admin/organizacion/save/email/{id}(id=${organization.id})}">Editar</a>
+                </div>
+</div>
+        </div>
+
+        <footer th:replace="/template/template :: footer"></footer>
+</body>
+
+</html>

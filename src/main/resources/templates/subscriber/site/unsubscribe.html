@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<title>Contribuidor</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+</head>
+
+<body>
+<div th:replace="fragments :: header"></div>
+<div class="container mt-5">
+		<form th:action="@{/subscribe/unsubscribe}" method="GET">
+			<div class="form-group">
+				<label for="title">Ingresa tu correo:</label>
+				<input type="email" class="form-control" id="email" name="email" required>				
+			</div>
+			<div class="action-button">	
+				<button type="submit" class="btn btn-primary">Cancelar Suscripción.</button>
+			</div>
+			
+			<script type="text/javascript">
+										const email = document
+												.getElementById("email");
+	
+										email
+	
+												.addEventListener(
+	
+														"input",
+	
+														function(event) {
+	
+															if (email.validity.typeMismatch) {
+	
+																email
+	
+																		.setCustomValidity("¡Se espera una dirección de correo electrónico!");
+	
+															} else {
+	
+																email
+	
+																		.setCustomValidity("");
+	
+															}
+	
+														});
+			</script>
+			
+		</form>
+</div>
+<!--===============================================================================================-->
+	<script src="https://kit.fontawesome.com/a6d8df04b2.js" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--===============================================================================================-->
+</body>
+</html>

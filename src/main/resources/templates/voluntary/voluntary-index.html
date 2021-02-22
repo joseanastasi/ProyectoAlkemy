@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Voluntarios</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+<body>
+<header th:replace="/template/template :: header"></header>
+<div class="admin-container">
+    <h2 class="title">VOLUNTARIOS PAAS</h2>
+    <br>
+    <div class="add-button">
+        <a th:href="@{/admin/voluntarios/save/0}" class="btn btn-primary btn-sm"> <i class="fas fa-plus"></i>
+            Agregar Voluntario
+        </a>
+    </div>
+
+    <div class="count" th:if="${voluntaries.isEmpty()}">
+        <h3>No hay voluntarios registrados en la base de datos</h3>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table" th:if="${!voluntaries.isEmpty()}">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>E-Mail</th>
+            <th>Detalle</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="voluntary : ${voluntaries}">
+            <td th:text="${voluntary.name}">
+            <td th:text="${voluntary.surname}">
+            <td th:text="${voluntary.email}">
+<td><a class="btn btn-success btn-sm" th:href="@{/admin/voluntarios/find-by-id/{id}(id=${voluntary.id})}">
+        Detalle</a></td>
+<td><a class="btn btn-info btn-sm" th:href="@{/admin/voluntarios/save/{id}(id=${voluntary.id})}" >
+        Editar</a></td>
+<td><a class="btn btn-danger btn-sm" th:href="@{/admin/voluntarios/delete/{id}(id=${voluntary.id})}" 
+        onclick="return confirm('¿Estas seguro de eliminar?')">
+        Eliminar</a></td>    
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="card-footer text-center mb-5">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <nav aria-label="Pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${previous==0 ? 'disabled' : ''}"><a class="page-link"
+                            th:href="@{|/admin/voluntarios/?page=${previous}|}" aria-label="Previous"> <span
+                                aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a></li>
+                    <li class="page-item" th:each="page:${pages}" th:classappend="${current==page ? 'active' : ''}"><a
+                            class="page-link" th:href="@{|/admin/voluntarios/?page=${page}|}" th:text="${page}"></a></li>
+
+                    <li class="page-item" th:classappend="${current==last ? 'disabled' : ''}"><a class="page-link"
+                            th:href="@{|/admin/voluntarios/?page=${next}|}" aria-label="Next"> <span
+                                aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
+                        </a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<footer th:replace="/template/template :: footer"></footer>
+</body>
+</html>

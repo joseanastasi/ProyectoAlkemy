@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<meta charset="utf-8">
+</head>
+<body>
+<!-- HEADER -->
+<div th:replace="fragments :: header"></div>
+<!-- FIN DEL HEADER -->
+
+<!-- MAP -->
+	<div class="tituloMapa">
+		<h1>Busca la asistencia mas cercana a tu domicilio.</h1>
+	</div>
+
+<section class="container mapAndCalendar mt-5 mb-5">
+	<div class="map" >
+<iframe  src="https://www.google.com/maps/d/embed?mid=1ufJ-JWq0aVZqmWzUOoGjjtp_yCBQ3zH5" width="640" height="480"></iframe>	
+	</div>
+		
+<!-- END OF MAP -->
+	
+<!-- CALENDARY -->
+<div class="container_calendar">
+        <div class="header_calendar">
+            <h1 id="text_day">00</h1>
+            <h5 id="text_month">Null</h5>
+        </div>
+        <div class="body_calendar">
+            <div class="container_details">
+                <div class="detail_1">
+                    <div class="detail">
+                        <div class="circle">
+                            <div class="column"></div>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <div class="circle">
+                            <div class="column"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail_2">
+                    <div class="detail">
+                        <div class="circle">
+                            <div class="column"></div>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <div class="circle">
+                            <div class="column"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container_change_month">
+                <button id="last_month">&lt;</button>
+                <div>
+                    <span id="text_month_02">Null</span>
+                    <span id="text_year">0000</span>
+                </div>
+                <button id="next_month">&gt;</button>
+            </div>
+            <div class="container_weedays">
+                <span class="week_days_item">DOM</span>
+                <span class="week_days_item">LUN</span>
+                <span class="week_days_item">MAR</span>
+                <span class="week_days_item">MÍE</span>
+                <span class="week_days_item">JUE</span>
+                <span class="week_days_item">VIE</span>
+                <span class="week_days_item">SÁB</span>
+            </div>
+            <div class="container_days">
+                <span class="week_days_item item_day"></span>
+                </div>
+        </div>
+    </div>
+ </section>
+
+<!-- END OF CALENDARY -->
+	
+<!-- LINK SYSTEM PAAS -->
+	<div class="btnPaas text-center">
+			<a href="#" class="btn btn-success btn-longue">Ingresa al sistema PAAS</a>
+	</div>
+	<br>
+<!-- END LINK SYSTEM PAAS -->
+
+<!-- FORM CONTACT EVENT -->
+
+<div class="container-contact100">		
+		<div class="wrap-contact100">
+			<div class="contact100-form-title" style="background-image: url(../img/bg-01.jpg);">
+				<span class="contact100-form-title-1">
+					¡Anotate!
+				</span>
+				<span class="contact100-form-title-2">
+					Formulario para participar de los eventos del Programa PAAS
+				</span>
+			</div>
+
+			<form class="contact100-form" th:action="@{/saved-beneficiary}" th:object=${beneficiary}  method="POST">
+				<div class="wrap-input100">
+					<span class="label-input100">Nombre:</span>
+					<input th:field="*{name}" class="input100" type="text" placeholder="Ingresa tu nombre">
+					<span class="focus-input100"></span>
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+					</small>
+				</div>
+
+
+				
+				<div class="wrap-input100">
+					<span class="label-input100">Apellido:</span>
+					<input  th:field="*{surname}" class="input100" type="text" placeholder="Ingresa tu apellido">
+					<span class="focus-input100"></span>
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">
+					</small>
+				</div>
+
+
+	
+				<div class="wrap-input100">
+					<span class="label-input100">D.N.I.:</span>
+					<input  th:field="*{dni}" class="input100" type="text" placeholder="Ingresa tu DNI">
+					<span class="focus-input100"></span>
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></small>
+				</div>
+
+				
+				<div class="wrap-input100">
+					<span class="label-input100">Email:</span>
+					<input  th:field="*{email}" class="input100" type="text" placeholder="Ingresa tu correo">
+					<span class="focus-input100"></span>
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+				</div>
+
+
+				<div class="wrap-input100">
+					<span class="label-input100">Telefono:</span>
+					<input  th:field="*{phone}" class="input100" type="text" placeholder="Ingresa tu numero telefonico">
+					<span class="focus-input100"></span>
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+				</div>
+
+						
+					
+				<div class="wrap-input100">
+					<span class="label-input100">Partido:</span>
+					<input th:field="*{town}"  class="input100" type="text" placeholder="Ingresa tu partido">
+					<span class="focus-input100"></span>
+					<small class="form-text text-danger" th:if="${#fields.hasErrors('town')}" th:errors="*{town}"></small>
+				</div>
+
+								
+				<div class="wrap-input100 input100-select">
+							<span class="label-input100" th:for="type">Evento:</span>
+							<select class="selection-2" th:name="eventId">
+								<option th:each="event : ${events}"
+										th:text="${event.title}"
+										th:value="${event.id}">
+										</option>
+    						</select>
+    						<span class="focus-input100 "></span>
+				</div>				
+								
+				<div class="container-contact100-form-btn ">
+					<button class="btn btn-success btn-block btn-lg mt-5">
+						<span>
+							Enviar
+							<i type="submit" class="fa fa-long-arrow-right text-center " aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+				<br><br>
+				<br><br>
+				<div><label th:text="${success}"></label></div>					
+			</form>	
+		</div>
+</div>
+<br>
+
+<!-- END FORM CONTACT EVENT -->
+
+<!-- FOOTER -->
+
+		<div th:replace="fragments :: footer"></div>
+	
+	<!-- END OF FOOTER -->
+			
+	<!-- jQuery -->
+	<div th:replace="fragments :: jquery"></div>
+	
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/js/calendario_script.js"></script>
+		
+	
+</body>
+</html>

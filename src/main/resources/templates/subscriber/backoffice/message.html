@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<title>Contribuidor</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="stylesheet" type="text/css" href="../js/select2/select2.min.css">
+</head>
+
+<body>
+<div th:replace="fragments :: header"></div>
+<div class="container-contact90">
+	<div class="text-center" style="align-items: center;" th:if="${OK!=null}">
+		<br><br>
+		<br><br>
+		<img src="../img/icono-gracias.png" alt="">		
+		<br><br>
+		<h2>Muchas Gracias!</h2>
+		<p>Te has subscripto al newslatter del Programa PAAS!</p>
+	</div>
+	<div class="text-center" style="align-items: center;" th:if="${error!=null}">
+		<br><br>
+		<br><br>
+		<img src="../img/icono-exclamation.png" alt="">		
+		<br><br>
+		<h2>Ha ocurrido un problema!</h2>
+		<p>Por favor contáctese con un administrador.</p>
+	</div>
+</div>
+</div>
+
+<div th:replace="fragments :: footer"></div>
+
+		<!-- jQuery -->
+	<div th:replace="fragments :: jquery"></div>
+
+<!--===============================================================================================-->
+	<script src="https://kit.fontawesome.com/a6d8df04b2.js" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--===============================================================================================-->
+</body>
+</html>
