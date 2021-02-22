@@ -1,0 +1,230 @@
+/*-- Body Reset --*/
+html{
+	overflow-x: hidden;
+}
+body {
+  overflow-x: hidden;
+  font-family: "Montserrat", sans-serif;
+  background-color: rgb(243, 236, 236);
+}
+
+/*============= CAROUSEL =============*/
+
+#event{
+border: none;
+-webkit-box-shadow: none;
+-moz-box-shadow: none;
+box-shadow: none;
+}
+
+/*---Change Carousel Transition Speed --*/
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+  transition: transform 1.2s ease;
+}
+
+.btn-longue{
+	margin-left:3%;
+	margin-right:3%;
+	width:94%;
+	
+}
+
+
+.fa-people-arrows{
+	color:rgb(245, 166, 4);
+}
+
+.fa-hospital-user{
+	color: #7aaec4;
+}
+.fa-network-wired{
+color:rgb(242, 51, 0);
+}
+
+
+
+@keyframes aparecer{
+  0%{
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0)
+  }
+}
+.ocultar{
+  opacity: 0;
+}
+.animar{
+  animation: aparecer 1s;
+}
+
+
+/*============= MEDIA QUERIES =============*/
+
+@media (max-width: 1920.98px) {
+	.nav-item {
+    margin-left:100px;
+}
+ .slick-list
+{
+   width:1000px;
+   margin-left:25%;
+   padding: 0;
+}
+
+.title h1{
+	font-size:60px;
+}
+.title p{
+	font-size:35px;
+	font-weight: 500;
+}
+
+.fa-7x{
+	font-size:100px;
+}
+
+.section-counter{
+	margin-left: 15%;
+	margin-right: 5%; 
+	
+}
+.section-counter .container-counter{
+display:flex;
+justify-content: space-between;
+
+}
+
+
+.contador_cantidad{
+  font-size: 30px;
+  font-weight: 900;
+}
+
+}
+
+@media (max-width: 1620.98px) {
+
+.slick-list
+{
+   width:900px;
+   margin-left:15%;
+   padding: 0;
+}
+
+}
+
+
+@media (max-width: 1420.98px) {
+.nav-item {
+	margin-left:40px;
+  }
+  
+.slick-list
+{
+   width:800px;
+   margin-left:20%;
+   padding: 0;
+}
+
+.title h1{
+	font-size:50px;
+}
+.title p{
+	font-size:30px;
+	font-weight: 500;
+}
+
+/*-- Counter Content --*/
+
+
+.fa-7x{
+	font-size:80px;
+}
+
+.section-counter .container-counter div h2{
+font-size: 27px;	
+}
+
+.contador_cantidad{
+  font-size: 25px;
+  font-weight: 900;
+}
+.counter-div h2{
+	font-size: 25px;
+  margin-right: 0px;
+}
+
+}
+
+/* Devices under 1199px (xl) */
+@media (max-width: 1199.98px) {
+	.nav-item {
+    margin-left:20px;
+}
+  
+  
+  .slick-list
+{
+   width:700px;
+   margin-left:20%;
+   padding: 0;
+}
+.title h1{
+	font-size:40px;
+}
+.title p{
+	font-size:25px;
+	font-weight: 500;
+}
+
+.section-counter .container-counter{
+justify-content: center;
+}
+}
+
+@media (max-width: 1000.00px) {
+.slick-list
+{
+margin-left: 120px;
+margin-right: 120px;
+}
+.fa-7x{
+	font-size:60px;
+}
+
+.contador_cantidad{
+  font-size: 20px;
+  font-weight: 900;
+}
+
+
+.section-counter .container-counter div h2{
+font-size: 22px;	
+}
+
+}
+@media (max-width: 850.00px) {
+.slick-list
+{
+   width:100%;
+   margin-left:0;
+   padding: 0;
+}
+
+
+}
+
+
+@media (max-width: 767.98px) {
+.section-counter .container-counter{
+flex-direction:column;
+margin-left: 0px;
+margin-right: 0px;
+}
+  
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Newsletter</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+<body>
+			<header th:include="/template/template :: header"></header>
+			
+	<div class="admin-container">
+		<br>
+		<h2 class="title"> NEWSLETTER</h2>
+		<br>
+		<form class="admin-form"  th:action="@{/admin/newsletter/}" th:object=${newsletter} method="POST">
+
+				<label for="name">Mensaje: </label>
+				<input type="text" class="form-control" id="message" th:field="*{message}" name="message"> 
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></small>
+				
+				<label for="name">URL Novedades: </label>
+				<input type="text" class="form-control" id="url" th:field="*{url}" name="url">
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('url')}" th:errors="*{url}"></small>					
+					<br>
+				<div class="action-button">
+						<a class="btn btn-secondary btn-sm" th:href="@{/admin/organizacion}">Cancelar</a>
+					<a class="btn btn-success btn-sm"> <button type="submit">Enviar</button></a>
+				
+				</div>
+			</form>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="/template/template :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Administrador</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+
+<body>
+    <header th:include="/template/template :: header"></header>
+    <div class="admin-container">
+        <h2 class="title">CONTADORES DE IMPACTO</h2>
+        <form class="admin-form" action="#" th:action="@{/admin/metricas/edit-metric/{id}(id=${metric.id})}"
+            th:object="${metric}" method="post">
+
+           
+            <label>Red de Miembros: </label>
+            <input required class="form-control" type="number" th:field="*{countMembers}" id="pacientes"
+                name="countMembers" />
+            <span th:if="${#fields.hasErrors('countMembers')}" th:errors="*{countMembers}"></span>
+
+
+            <label>Pacientes Beneficiados: </label>
+            <input required class="form-control" type="number" th:field="*{countPatients}" id="pacientes"
+                name="countPatients" />
+            <span th:if="${#fields.hasErrors('countPatients')}" th:errors="*{countPatients}"></span>
+
+
+            <label>Usuarios de actividades: </label>
+            <input required class="form-control" type="number" th:field="*{countUsersActivities}" id="pacientes"
+                name="countUsersActivities" />
+            <span th:if="${#fields.hasErrors('countUsersActivities')}" th:errors="*{countUsersActivities}"></span>
+
+        <br>
+             <div class="action-button">
+                <a class="btn btn-secondary btn-sm" th:href="@{/admin/metricas}">Cancelar</a>
+                <a class="btn btn-success btn-sm"> <button type="submit">Guardar</button></a>
+            </div>
+        </form>
+    </div>
+    <footer th:replace="/template/template :: footer"></footer>
+</body>
+
+</html>

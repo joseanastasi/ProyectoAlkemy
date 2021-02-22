@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Administrador</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+
+<body>
+
+    <header th:include="/template/template :: header"></header>
+    <div class="admin-container">
+        <h2 class="title">CONTADOR DE IMPACTO</h2>
+        <br>
+        <div class="add-button" th:if="${metrics.isEmpty()}">
+            <a th:href="@{/admin/metricas/new-metric}" class="btn btn-primary btn-lg"> <i class="fas fa-plus"></i>
+                Registar Metrica
+            </a>
+        </div>
+            <div class="count" th:if="${metrics.isEmpty()}">
+                <h3>No hay metricas registrados en la base de datos</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table" th:if="${!metrics.isEmpty()}">
+            <thead>
+                <tr>
+                    <th>Red de miembros</th>
+                    <th>Pacientes beneficiados</th>
+                    <th>Usuarios de actividades</th>
+                    <th>Editar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="metric : ${metrics}">
+                    <td th:text="${metric.countPatients}">
+                    <td th:text="${metric.countMembers}">
+                    <td th:text="${metric.countUsersActivities}">
+
+                    <td><a class="btn btn-info btn-sm"
+                            th:href="@{/admin/metricas/edit-metric/{id}(id=${metric.id})}">Editar</a> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer th:replace="/template/template :: footer"></footer>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="css/style.css">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header th:insert="/template/template :: header"></header>
+    <div class="admin-container">
+        <br>
+        <h2 class="title">Agregar Voluntario</h2>
+        <form class="admin-form" action="#" th:action="@{/admin/voluntarios/save}" th:object="${voluntary}" method="post">
+        <label for="name">Nombre</label>
+        <input type="text"class="form-control" id="name" th:field="*{name}" name="name"required>
+        <small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+        <input type="hidden" th:field="*{id}" name="id" id="id">
+
+        <label for="name">Apellido</label>
+        <input type="text"  class="form-control" id="surname" th:field="*{surname}"  name="surname"required>
+        <small class="form-text text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></small>
+
+        <label for="name">E-Mail</label>
+        <input type="text" class="form-control" id="email" th:field="*{email}" name="email"required>
+        <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+
+        <label for="name">Telefono</label>
+        <input type="text" class="form-control" id="phone" th:field="*{phone}" name="phone"required>
+        <small class="form-text text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+    <br>
+    <div class="action-button">
+        <a class="btn btn-secondary btn-sm" th:href="@{/admin/voluntarios}">Cancelar</a>
+        <a class="btn btn-success btn-sm"> <button type="submit">Guardar</button></a>
+    </div>
+    </form>
+</div>
+<footer th:replace="/template/template :: footer"></footer>
+</body>
+</html>

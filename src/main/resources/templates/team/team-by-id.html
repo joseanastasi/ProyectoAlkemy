@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Equipo</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+<body>
+	<header th:include="/template/template :: header"></header>
+	<div class="admin-container">
+		<h2 class="title">EQUIPO PAAS</h2>
+		<br>
+	<div class="table-responsive">
+		<table class="table" >
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Correo Electrónico</th>
+					<th>Telefono</th>
+					<th>Rol</th>
+					<th>Rol definido</th>
+					<th>Imagen</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="team : ${team}">
+					<td th:text="${team.name}">
+					<td th:text="${team.surname}">
+					<td th:text="${team.email}">
+					<td th:text="${team.phone}">
+					<td th:text="${team.type.name}">
+					<td th:text="${team.content}">
+					<td th:if="${team.image != null}">
+						<div th:if="${team.image != ''}">
+							<img th:src="*{'data:image/jpeg;base64,'+{team.image}}"
+								style="width: 100px; height: 75px;" class="img-thumbnail">
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<div class="action-button">
+			<a class="btn btn-secondary btn-sm" th:href="@{/admin/equipo}">Volver</a>
+		</div>
+			<br>
+	</div>
+	<footer th:replace="/template/template :: footer"></footer>
+</body>
+</html>

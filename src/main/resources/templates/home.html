@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments :: head">
+	<meta charset="utf-8">
+
+</head>
+
+<body>
+	<!-- HEADER -->
+	<div th:replace="fragments :: header"></div>
+	<!-- FIN DEL HEADER -->
+
+	<!-- Image Carousel -->
+	<section class="container_slick slick" id="event">
+		<div class="carousel one-time">
+			<img th:each="event: ${carousel}" th:if="${event.image != ''}"
+				th:src="*{'data:image/jpeg;base64,'+{event.image}}">
+		</div>
+	</section>
+	<!-- End Image Carousel -->
+
+	<!-- Main Page Heading -->
+	<div class="col-12 text-center">
+		<h1 class="text-dark pt-4">Asociacion Civil Programa Paas</h1>
+		<div class="border-top border-primary w-25 mx-auto my-3"></div>
+		<p class="lead pb-6">Programa de Asistencia Ambulatoria Solidaria</p>
+	</div>
+
+	<section class="section-counter contadores_principal mb-5">
+		<div class="col-12 text-center container-counter mb-5" th:each="metric : ${metrics}">
+			<div class="contador ocultar">
+				<i class="fas fa-network-wired fa-5x"></i>
+				<div class="contador_cantidad" th:data-cantidad-total="${metric.countMembers}"></div>
+					<h2>Red de miembros</h2>
+			</div>
+			<div class="contador ocultar">
+				<i class="fas fa-hospital-user fa-5x"></i>
+				<div class="contador_cantidad" th:data-cantidad-total="${metric.countPatients}"></div>
+					<h2>Pacientes beneficiados</h2>
+			</div>
+			<div class="contador ocultar">
+				<i class="fas fa-people-arrows fa-5x"></i>
+				<div class="contador_cantidad" th:data-cantidad-total="${metric.countUsersActivities}"></div>
+					<h2>Usuarios de actividades sociales</h2>
+			</div>
+		</div>
+	</section>
+
+	<!-- End Counter Section -->
+
+	<!-- three column Section -->
+
+		<div class="row my-2 mx-2">
+
+			<div class="col-md-4 my-4">
+				<img src="img/1.jpg" alt="" class="img-fluid">
+				<h4 class="mt-5 text-center">"Salud a tu alcance."</h4>
+				<p>Desarrollamos un mapa que permite a los ciudadanos acceder de
+					manera sencilla a la información y a los datos vinculados a
+					instituciones prestadoras de salud (IPS) permitiéndoles a la
+					población elegir de acuerdo a sus condiciones socioeconómicas dónde
+					atenderse.</p>
+			</div>
+
+			<div class="col-md-4 my-4">
+				<img src="img/2.jpg" alt="" class="img-fluid mb-3">
+				<h4 class="mt-5 text-center">"Jornadas Saludables y Nutricionales."</h4>
+				<p class="mb-5">Organizamos visitas periódicas a comedores y
+					otros espacios comunitarios, con profesionales médicos, enfermeros
+					y nutricionistas.</p>
+				<a th:href="@{/programa_paas}" class="btn btn-primary btn-block btn-lg mt-5 ">Leer
+					mas</a>
+			</div>
+
+			<div class="col-md-4 my-4">
+				<img src="img/3.jpg" alt="" class="img-fluid mb-2">
+				<h4 class="mt-5 text-center">"Educación."</h4>
+				<p>Cursos de capacitación en temas específicos que buscan
+					introducir a los ciudadanos en temas vinculados a la salud.</p>
+			</div>
+		</div>
+	<!-- End three column Section -->
+	<!-- Button to form Section -->
+
+	<div>
+		<a href="#" th:href="@{/contacts}" class="btn btn-success btn-longue mt-5 "
+			style="text-decoration-color: black;">Sumate a la Causa</a>
+	</div>
+	<br>
+	<!-- FOOTER -->
+
+	<div th:replace="fragments :: footer"></div>
+
+	<!-- END OF FOOTER -->
+
+	<!-- jQuery -->
+	<div th:replace="fragments :: jquery"></div>
+	<script src="js/slick.js"></script>
+
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.one-time').slick({
+				infinite: true,
+				  dots: true,
+				speed: 300,
+				autoplay: true,
+				autoplaySpeed: 2000,
+				fade: true,
+				speed: 900,
+			});
+		});
+	</script>
+
+
+</body>
+
+</html>

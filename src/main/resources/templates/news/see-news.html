@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+<body>
+
+	<header th:insert="/template/template :: header"></header>
+	<div class="admin-container">
+		<div class="" style="margin: 0 auto; text-align: center;">
+			<span th:if="${news.image != null}"> <span
+				th:if="${news.image != ''}"> <img class="m-5 img-thumbnail"
+					th:src="*{'data:image/jpeg;base64,'+{news.image}}"
+					style="width: 90%; height: 100%;">
+			</span>
+			</span>
+			<h2 class="text-center mb-4" th:text="${news.title}"></h2>
+			<h5 class="text">
+				Publicado el <span th:text="${news.date}"></span>
+			</h5>
+			<p th:utext="${news.content}"></p>
+<br>
+	<div class="action-button">
+		<a class="btn btn-secondary btn-sm" th:href="@{/admin/novedades}">Volver</a>
+	</div>
+		</div>
+
+		
+	</div>
+	<footer th:insert="/template/template :: footer"></footer>
+
+</body>
+</html>

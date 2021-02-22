@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Organización</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+<body>
+	<header th:include="/template/template :: header"></header>
+	<div class="admin-container">
+		<h2 class="title"> EDITAR O CREAR ORGANIZACION</h2>
+		<form class="admin-form" th:action="@{/admin/organizacion/save/}"
+			th:object="${organization}" method="post"
+			enctype="multipart/form-data">
+			<label for="name">Nombre: </label> <input type="text"
+				class="form-control" id="name" th:field="*{name}" name="name"
+				required>
+			<input type="hidden" th:field="*{id}" name="id" id="id"> 
+			<input type="hidden" th:field="*{logo}" name="logo"
+				id="logo"> 
+			<label for="name">Visión: </label> 
+			<br>
+			<textarea  rows="3" cols="100%" name="vision" th:field="*{vision}" required>
+			</textarea><br>
+
+			<label for="name">Misión: </label>
+			<br>
+			<textarea rows="3" cols="100" name="mission" th:field="*{mission}" required>
+						</textarea><br>
+			
+		
+			<label for="name">Correo Electrónico: </label>
+			 <input type="text" class="form-control" id="email" th:field="*{email}" name="email" required>
+			 <label for="name">Teléfono: </label>
+			<input type="text" class="form-control" id="phone" th:field="*{phone}" name="phone" required> 
+				<label for="name">Dirección:</label>
+			<input type="text" class="form-control" id="address" th:field="*{address}" name="address" required> 
+				
+
+	<input style="display: none;" type="text" class="form-control" id="emailServer" th:field="*{emailServer}" name="emailServer">
+	<input  style="display: none;"type="text" class="form-control" id="emailServerPort" th:field="*{emailServerPort}" name="emailServerPort">
+
+	<input style="display: none;" type="text" class="form-control" id="emailUser" th:field="*{emailUser}" name="emailUser">
+	
+	<input style="display: none;" type="text" class="form-control" id="emailPassword" th:field="*{emailPassword}" name="emailPassword">
+	
+	<label for="name">Logo</label>
+			 <input style="height: 35px;" type="file" class="form-control" name="file" accept="image/*">
+			<div th:if="${organization.logo != null}" class="">
+				<div th:if="${organization.logo != ''}" class="">
+					<h6>Imagen guardada</h6>
+					<img th:src="*{'data:image/jpeg;base64,'+{logo}}"
+						style="width: 75px; height: 75px;">
+				</div>
+			</div>
+		
+			<label for="active">Activa:</label>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" th:field="*{active}" type="radio"
+					name="active" id="active1" value=1> <label
+					class="form-check-label" for="enabled1"> SI </label>
+			
+				<input class="form-check-input" th:field="*{active}" type="radio"
+					name="active" id="active2" value=0> <label
+					class="form-check-label" for="active2"> NO</label>
+			</div>
+	
+			<div class="action-button">
+				<a class="btn btn-secondary btn-sm" th:href="@{/admin/organizacion}">Cancelar</a>
+				 <a class="btn btn-success btn-sm"> <button type="submit">Guardar</button></a>
+			</div>
+
+		</form>
+	</div>
+	<br>
+	<br>
+	<br>
+	<footer th:replace="/template/template :: footer"></footer>
+</body>
+</html>

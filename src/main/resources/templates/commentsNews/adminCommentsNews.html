@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title></title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+<body>
+
+	<header th:insert="/template/template :: header"></header>
+
+
+	<div class="count"
+		th:if="${listComments.isEmpty()}">
+		<h3>No hay comentarios para administrar</h3>
+	</div>
+	<div th:if="${!listComments.isEmpty()}">
+		<div class="container">
+			<div class="d-flex justify-content-center row">
+				<div class="col-md-8">
+					<div class="d-flex flex-column comment-section" id="myGroup">
+						<h2 th:text="${manage}" class="m-4"></h2>
+						<div class="bg-white p-6  mb-5"
+							th:each="comentary:${listComments}">
+							<div class="d-flex flex-row user-info">
+								<span th:if="${comentary.photo != null}"> <span
+									th:if="${comentary.photo != ''}"> <img
+										th:src="*{'data:image/jpeg;base64,'+{comentary.photo}}"
+										class="rounded-circle" width="80">
+								</span>
+								</span>
+								<div class="d-flex flex-column justify-content-start ml-2">
+									<span class="d-block font-weight-bold text-primary"
+										th:text="${comentary.name}"> </span><span
+										class="text-black-50">Fecha de publicación: <span
+										th:text="${comentary.publicationDate}"></span>
+									</span>
+								</div>
+							</div>
+							<div class="mt-2">
+								<span class="d-block font-weight-bold">Titulo de la
+									publicación: <span th:text="${comentary.news.title}"></span>
+								</span> <span class="d-block font-weight-bold">Comentario:</span>
+								<p class="comment-text" th:text="${comentary.comments}"></p>
+								<div>
+									<a class="btn btn-success btn-xs"
+										th:href="@{/admin/commentarios/approve/{id} (id=${comentary.id})}"><i
+										class="fa fa-check" aria-hidden="true"></i> Aprobado</a> <a
+										class="btn btn-danger btn-xs"
+										th:href="@{/admin/commentarios/delete/{id} (id=${comentary.id})}"
+										title="Eliminar Comentario"
+										onclick="return confirm('¿Estas seguro de eliminar el comentario?')"><i
+										class="fa fa-trash-o fa-lg"></i> Eliminar</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="card-footer text-center mb-5">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<nav aria-label="Pagination">
+						<ul class="pagination justify-content-center">
+							<li class="page-item"
+								th:classappend="${previous==0 ? 'disabled' : ''}"><a
+								class="page-link"
+								th:href="@{|/admin/commentsNews/?page=${previous}|}"
+								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+									<span class="sr-only">Previous</span>
+							</a></li>
+							<li class="page-item" th:each="page:${pages}"
+								th:classappend="${current==page ? 'active' : ''}"><a
+								class="page-link"
+								th:href="@{|/admin/commentsNews/?page=${page}|}"
+								th:text="${page}"></a></li>
+
+							<li class="page-item"
+								th:classappend="${current==last ? 'disabled' : ''}"><a
+								class="page-link"
+								th:href="@{|/admin/commentsNews/?page=${next}|}"
+								aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+									class="sr-only">Next</span>
+							</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer th:insert="/template/template :: footer"></footer>
+</body>
+</html>

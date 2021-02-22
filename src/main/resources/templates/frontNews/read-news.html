@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<meta charset="UTF-8">
+<title></title>
+</head>
+
+<body>
+
+	<div th:replace="fragments :: header"></div>
+	<div class="containerNews">
+		<div class="news">
+			<span th:if="${news.image != null}"> <span
+				th:if="${news.image != ''}"> <img class="m-5 img-thumbnail"
+					th:src="*{'data:image/jpeg;base64,'+{news.image}}"
+					style="width: 700px; height: 500px;">
+			</span>
+			</span>
+			<h2 class="text-center mb-4" th:text="${news.title}"></h2>
+			<h5 class="text">
+				Publicado el <span th:text="${news.date}"></span>
+			</h5>
+			<p th:utext="${news.content}"></p>
+
+			<div class="container text-center">
+				<div class="alert alert-primary" role="alert">
+					Esta publicación tiene <span th:text="${numberComments}"></span>
+					comentarios. Si querés <a th:href="@{#comentary}"
+						data-toggle="modal" data-target="#comentary">dejar un
+						comentario</a> da clic.
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="comentary" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Tu
+						dirección de correo electrónico no será publicada.</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="container">
+
+
+						<form th:action=@{/news/saveComments/} th:object=${userCommentary}
+							method="post" enctype="multipart/form-data">
+							<div class="form-group row">
+								<input type="hidden" th:field="*{id}" /> <input type="hidden"
+									th:field="*{news}" /> <input type="hidden" th:field="*{photo}" />
+							</div>
+							<div class="form-group row">
+								<label for="name">Nombre:</label> <small
+									class="form-text text-danger">*</small>
+							</div>
+							<div class="form-group row">
+								<input type="text" th:field="*{name}"
+									class="form-control form-control-sm col-md-7"
+									placeholder="Nombre" required /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('name')}" th:errors=*{name}>
+								</small>
+							</div>
+							<div class="form-group row">
+								<label for="email"> Correo electrónico:</label><small
+									class="form-text text-danger">*</small>
+							</div>
+							<div class="form-group row">
+								<input th:field="*{email}" type="email"
+									class="form-control form-control-sm col-md-7"
+									placeholder="Correo Electrónico" required></input> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('email')}" th:errors=*{email}>
+								</small>
+							</div>
+
+							<div class="form-group row">
+								<label for="comments">Comentario:</label> <small
+									class="form-text text-danger">*</small>
+							</div>
+							<div class="form-group row">
+								<textarea class="form-control form-control-sm col-md-8"
+									th:field="*{comments}" rows="5" placeholder="Comentario"
+									required></textarea>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('comments')}" th:errors=*{comments}>
+								</small>
+							</div>
+
+							<div class="form-group row">
+								<label class="col-md-2" for="image">Foto:</label>
+							</div>
+							<div class="form-group row">
+								<input type="file" name="file" id="imageFile"
+									class="form-control form-control-sm col-md-6" accept="image/*" />
+							</div>
+
+							<div class="form-group row">
+								<label for="name">Web:</label>
+							</div>
+							<div class="form-group row">
+								<input type="text" th:field="*{web}"
+									class="form-control form-control-sm col-md-9" />
+							</div>
+
+
+							<div class="form-group row">
+								<input type="submit" class="btn btn-primary btn-sm"
+									value="Publicar Comentario" />
+							</div>
+							<script type="text/javascript">
+								const email = document.getElementById("email");
+
+								email
+										.addEventListener(
+												"input",
+												function(event) {
+													if (email.validity.typeMismatch) {
+														email
+																.setCustomValidity("¡Se espera una dirección de correo electrónico!");
+													} else {
+														email
+																.setCustomValidity("");
+													}
+												});
+							</script>
+							<script type="text/javascript">
+								const MAX_SIZE_BYTES = 4194304;
+								const $imageFile = document
+										.querySelector("#imageFile");
+
+								$imageFile
+										.addEventListener(
+												"change",
+												function() {
+
+													var file = this.files[0];
+													if (file.size > MAX_SIZE_BYTES) {
+														const SIZE_MB = MAX_SIZE_BYTES / 1048576;
+														var sizeImageMB = (file.size / 1048576)
+																.toFixed(2);
+														alert(`El tamaño máximo permitido de la imagen es ${SIZE_MB}MB. La imagen cargada tiene un tamaño de ${sizeImageMB}MB`);
+														$imageFile.value = "";
+													}
+												});
+							</script>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container mt-5" th:each="commentary:${listComments}">
+		<div class="d-flex justify-content-center row">
+			<div class="col-md-8">
+				<div class="d-flex flex-column comment-section" id="myGroup">
+					<div class="bg-white p-2">
+						<div class="d-flex flex-row user-info">
+							<span th:if="${commentary.photo != null}"> <span
+								th:if="${commentary.photo != ''}"> <img
+									class="rounded-circle"
+									th:src="*{'data:image/jpeg;base64,'+{commentary.photo}}"
+									style="width: 60px; height: 60px;">
+							</span>
+							</span>
+							<div class="d-flex flex-column justify-content-start ml-2">
+								<span class="d-block font-weight-bold text-primary"
+									th:text="${commentary.name}"></span><span
+									class="date text-black-50"
+									th:text="${commentary.publicationDate}"></span>
+							</div>
+						</div>
+						<div class="mt-2">
+							<p class="comment-text" th:text="${commentary.comments}"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+
+	<div th:replace="fragments :: footer"></div>
+
+	<!-- END OF FOOTER -->
+
+	<!-- jQuery -->
+	<div th:replace="fragments :: jquery"></div>
+
+</body>
+</html>

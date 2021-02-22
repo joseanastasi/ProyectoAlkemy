@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Equipo</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+
+</head>
+<body>
+	<header th:include="/template/template :: header"></header>
+	<div class="admin-container">
+		<br>
+		<h2 class="title"> EQUIPO PAAS</h2>
+		<form class="admin-form"  th:action="@{/admin/equipo/save}" th:object="${team}"
+			method="POST" enctype="multipart/form-data">
+			<label for="name">Nombre: </label> 
+			<input type="text" class="form-control" id="name" th:field="*{name}" name="name" required>
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+
+			 <input type="hidden" th:field="*{id}" name="id" id="id">
+			 <input type="hidden" th:field="*{image}"name="image" id="image">
+				
+		    <label for="name">Apellido:</label>
+			<input type="text" class="form-control" id="surname"th:field="*{surname}" name="surname" required>
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></small>
+
+			<label for="name">Correo Electrónico: </label>
+			<input type="text"class="form-control" id="email" th:field="*{email}" name="email"required>
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+
+			<label for="name">Teléfono: </label>
+			<input type="text" class="form-control" id="phone" th:field="*{phone}"name="phone" required>
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+
+			<label for="name">Rol: </label>
+			<select th:field="*{type}" class="form-control">
+				<option th:each="teamType : ${teamType}" th:text="${teamType.name}"
+						th:value="${teamType}"></option></select>
+
+			<label for="name">Rol definido: </label>
+			<input type="text"class="form-control" id="content" th:field="*{content}"name="content" required>
+			<small class="form-text text-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></small>
+
+			<label class="col-md-2" for="name">Imagen: </label>
+			<input type="file" style="height: 35px;" class="form-control" name="file" id="imageFile" accept="image/*">
+			<div th:if="${team.image != null}" class="col-md-5">
+				<div th:if="${team.image != ''}" class="col-md-5">
+					<h6>Imagen guardada</h6>
+					<img th:src="*{'data:image/jpeg;base64,'+{image}}"
+						style="width: 100px; height: 100px;">
+				</div>
+			</div>
+			<br>
+				<div class="action-button">
+					<a class="btn btn-secondary btn-sm" th:href="@{/admin/equipo}">Cancelar</a>
+					<a class="btn btn-success btn-sm"> <button type="submit">Guardar</button></a>
+				</div>
+		</form>
+	</div>
+	<footer th:replace="/template/template :: footer"></footer>
+	<br>
+	<br>
+	<script type="text/javascript">
+		const MAX_SIZE_BYTES = 4194304;
+		const $imageFile = document.querySelector("#imageFile");
+
+		$imageFile
+				.addEventListener(
+						"change",
+						function() {
+
+							var file = this.files[0];
+							if (file.size > MAX_SIZE_BYTES) {
+								const SIZE_MB = MAX_SIZE_BYTES / 1048576;
+								var sizeImageMB = (file.size / 1048576)
+										.toFixed(2);
+								alert(`El tamaño máximo permitido de la imagen es ${SIZE_MB}MB.
+								La imagen cargada tiene un tamaño de ${sizeImageMB}MB`);
+								$imageFile.value = "";
+							}
+						});
+	</script>
+</body>
+</html>

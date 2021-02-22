@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Eventos</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+
+<body>
+	<header th:include="/template/template :: header"></header>
+	<div class="admin-container">
+		<h2 class="title">DETALLE DE EVENTO</h2>
+		<br>
+			<div class="table-responsive">
+				<table class="table">
+		<thead>
+			<tr>
+				<th>Titulo</th>
+				<th>Tipo de evento</th>
+				<th>Imagen</th>
+				<th>Contenido</th>
+				<th>Direccion</th>
+				<th>Fecha de inicio</th>
+				<th>Fecha de cierre</th>
+				<th>Numero de beneficiarios</th>
+				<th>Estado</th>
+				<th>Inscriptos</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="event : ${event}">
+				<td th:text="${event.title}"></td>
+				<td th:text="${event.eventType}"></td>
+				<td th:if="${event.image != null}">
+					<div th:if="${event.image != ''}">
+						<img th:src="*{'data:image/jpeg;base64,'+{event.image}}"
+							style="width: 75px; height: 75px;" class="img-thumbnail">
+					</div>
+				</td>
+				<td th:text="${event.content}"></td>
+				<td th:text="${event.address}"></td>
+				<td th:text="${event.startDate}"></td>
+				<td th:text="${event.endDate}"></td>
+				<td th:text="${event.numberOfBeneficiaries}"></td>
+					<td th:if="${event.active==true}"><span class="badge">ACTIVA</span></td>
+					<td th:if="${event.active==false}"><span class="badge">INACTIVA</span></td>
+				<td th:text="${event.enrolled}"></td>
+			</tr>
+		</tbody>
+	</table>
+			</div>
+<br>
+	<div class="action-button">
+		<a class="btn btn-secondary btn-sm" th:href="@{/admin/eventos}">Volver</a>
+	</div>
+		<footer th:replace="/template/template :: footer"></footer>
+</body>
+</html>

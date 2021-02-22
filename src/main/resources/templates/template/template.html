@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+
+</head>
+
+<body>
+
+	<!-- BARRA DE NAVEGACIÓN -->
+
+	<div th:fragment="header">
+
+		<nav class="navbar bg-dark navbar-dark navbar-expand-lg text-center" style="background: #7aaec4 !important;">
+			<div class="container-fluid">
+				<a style="font-size: 1.5rem; color: white; font-weight: 600;">Programa de Asistencia Ambulatoria Solidaria</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse_target">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="collapse_target" >
+					<ul class="navbar-nav" style="float: right !important;">
+							<li class="nav-item active"><a class="nav-link" th:href="@{/}"> 
+								<img th:each="organization: ${organizations}"
+								 th:if="${organization.logo != ''}"
+								 th:src="*{'data:image/jpeg;base64,'+{organization.logo}}" alt="logo" title="logo" 
+								  style=" height:40px;">
+								</a></li>
+
+					<form sec:authorize="isAuthenticated()" class="form-inline" form-method="post" th:action="@{/logout}">
+						<button style="
+						color: white;
+							font-weight: 600; 
+							font-size: 1.5rem; 
+							text-align: left;
+							padding-left: 2rem;
+							padding-right: 2rem;
+							border: none;
+							width: 100%; background-color: transparent !important" type="submit"><i class="fas fa-sign-out-alt"></i> </i>
+							Cerrar
+							Sesión</button>
+					</form>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="vertical-header">
+	<ul class="navbar-nav mr-auto" >
+	
+
+	<li class="nav-item" >
+	<a class="nav-link"  th:href=@{/admin/organizacion}
+	style="
+    padding: 0 !important;"
+	> 
+	<button>
+	<i class="fas fa-sitemap"></i> Programa PAAS
+	</button>
+	</a>
+	</li>
+
+	<li class="nav-item" >
+	<a class="nav-link"  th:href=@{/admin/equipo}
+	style="
+    padding: 0 !important;"
+	> 
+	<button >
+	<i class="fas fa-users"></i> Equipo PAAS
+	</button>
+	</a>
+	</li>
+
+	<li class="nav-item" >
+		<a class="nav-link" th:href=@{/admin/novedades}
+		style="
+    padding: 0 !important;"
+	> 
+			<button >
+			<i class="fas fa-newspaper"></i> Novedades
+			</button>
+		</a>
+	</li>
+
+	<li class="nav-item" >
+		<a class="nav-link" th:href=@{/admin/aportantes}
+		style="
+    padding: 0 !important;"
+	> 
+			<button>
+				<i class="fas fa-user"></i> Aportantes
+			</button>
+		</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" th:href=@{/admin/voluntarios} style="
+	    padding: 0 !important;">
+			<button>
+				<i class="fas fa-user"></i> Voluntarios
+			</button>
+		</a>
+	</li>
+
+	<li class="nav-item" >
+		<a class="nav-link" th:href=@{/admin/usuarios}
+		style="
+    padding: 0 !important;"
+	> 
+			<button >
+			<i class="fas fa-user-lock"></i> Usuarios
+			</button>
+		</a>
+	</li>
+
+		<li class="nav-item" >
+			<a class="nav-link" th:href=@{/admin/eventos}
+			style="
+    padding: 0 !important;"
+	> 
+				<button >
+					<i class="fas fa-calendar-alt"></i> Eventos
+				</button>
+			</a>
+		</li>
+
+			<li class="nav-item" >
+				<a class="nav-link" th:href=@{/admin/metricas}
+				style="
+    padding: 0 !important;"
+	> 
+					<button>
+							<i class="fas fa-chart-bar"></i> Metricas
+					</button>
+				</a>
+			</li>
+
+					<li class="nav-item" >
+				<a class="nav-link" th:href=@{/admin/organizacion/email}
+				style="
+    padding: 0 !important;"> 
+					<button>
+							<i class="fas fa-envelope"></i> Correo Electronico</button>
+				</a>
+			</li>
+			<li class="nav-item" >
+				<a class="nav-link" th:href=@{/admin/newsletter}
+				style="
+    padding: 0 !important;"> 
+					<button>
+							<i class="fas fa-envelope"></i> Newsletter
+					</button>
+				</a>
+			</li>
+			<li class="nav-item" >
+				<a class="nav-link" th:href=@{/admin/commentarios}
+				style="padding: 0 !important;"> 
+					<button>
+							<i class="fas fa-envelope"></i> Comentarios
+					</button>
+				</a>
+			</li>
+			<li class="nav-item" >
+				<form sec:authorize="isAuthenticated()" class="form-inline" form-method="post" th:action="@{/logout}">
+					<button
+				    type="submit"><i class="fas fa-sign-out-alt"></i>Cerrar	Sesión</button>
+				</form>
+				</li>
+			</ul>
+</div>
+
+		<!-- MENSAJES -->
+
+		<div class="alert alert-success alert-dismissable" th:if="${success!=null}">
+			<label th:text="${success}"></label>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+
+		<div class="alert alert-danger alert-dismissable" th:if="${error!=null}">
+			<label th:text="${error}"></label>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+
+		<div class="alert alert-warning alert-dismissable" th:if="${warning!=null}">
+			<label th:text="${warning}"></label>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+
+		<div class="alert alert-info alert-dismissable" th:if="${info!=null}">
+			<label th:text="${info}"></label>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		</div>
+	</div>
+
+
+
+	<!-- CONTENIDO -->
+
+
+	<!-- PIE DE PAGINA -->
+
+	<div th:fragment="footer" class="text-white text-center fixed-bottom bg-primary"
+		>
+		<a >© 2020 Programa PAAS </a>
+</div>
+</body>
+
+</html>

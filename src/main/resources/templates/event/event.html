@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Evento</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css"
+	th:href="@{/css/admin.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+</head>
+<body>
+	<header th:insert="/template/template :: header"></header>
+	<div class="admin-container">
+		<h2 class="title">EVENTOS</h2>
+	
+		<div class="add-button">
+			<a th:href="@{/admin/eventos/save/0}" class="btn btn-primary btn-sm">
+				<i class="fas fa-plus"></i> Agregar Evento
+			</a>
+		</div>
+				<div class="count" th:if="${events.isEmpty()}">
+					<h3>No hay eventos registrados en la base de datos</h3>
+				</div>
+				<div class="table-responsive">
+					<table class="table" th:if="${!events.isEmpty()}">
+			<thead>
+				<tr>
+					<th>Titulo</th>
+					<th>Tipo de evento</th>
+					<th>Contenido</th>
+					<th>Imgen</th>
+					<th>Detalle</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="event : ${events}">
+					<td th:text="${event.title}"></td>
+					<td th:text="${event.eventType}"></td>
+					<td th:text="${event.content}"></td>
+					<td th:if="${event.image != null}">
+						<div th:if="${event.image != ''}">
+							<img th:src="*{'data:image/jpeg;base64,'+{event.image}}"
+								style="width: 75px; height: 75px;" class="img-thumbnail">
+						</div>
+					</td>
+					<td><a class="btn btn-success btn-sm"
+						th:href="@{/admin/eventos/find-by-id/{id}(id=${event.id})}">Detalle</a></td>
+					<td><a class="btn btn-info btn-sm"
+						th:href="@{/admin/eventos/save/{id}(id=${event.id})}">Editar</a></td>
+					<td><a class="btn btn-danger btn-sm"
+						th:href="@{/admin/eventos/delete/{id}(id=${event.id})}"  onclick="return confirm('¿Estas seguro de eliminar?')">Eliminar</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="card-footer text-center mb-5">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<nav aria-label="Pagination">
+						<ul class="pagination justify-content-center">
+							<li class="page-item"
+								th:classappend="${previous==0 ? 'disabled' : ''}"><a
+								class="page-link"
+								th:href="@{|/admin/eventos/?page=${previous}|}"
+								aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+									<span class="sr-only">Previous</span>
+							</a></li>
+							<li class="page-item" th:each="page:${pages}"
+								th:classappend="${current==page ? 'active' : ''}"><a
+								class="page-link" th:href="@{|/admin/eventos/?page=${page}|}"
+								th:text="${page}"></a></li>
+							<li class="page-item"
+								th:classappend="${current==last ? 'disabled' : ''}"><a
+								class="page-link" th:href="@{|/admin/eventos/?page=${next}|}"
+								aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+									class="sr-only">Next</span>
+							</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer th:insert="/template/template :: footer"></footer>
+</body>
+</html>

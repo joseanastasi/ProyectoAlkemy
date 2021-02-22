@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Organizacion</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+<body>
+	<header th:include="/template/template :: header"></header>
+	<div class="container">
+		<h2>Organización</h2>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th>Nro</th>
+					<th>Nombre</th>
+					<th>Visión</th>
+					<th>Misión</th>
+					<th>Correo Electrónico</th>
+					<th>Teléfono</th>
+					<th>Dirección</th>
+					<th>Logo</th>
+					<th>Activa</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="organization : ${organization}">
+					<td th:text="${organization.id}"></td>
+					<td th:text="${organization.name}"></td>
+					<td th:text="${organization.vision}"></td>
+					<td th:text="${organization.mission}"></td>
+					<td th:text="${organization.email}"></td>
+					<td th:text="${organization.phone}"></td>
+					<td th:text="${organization.address}"></td>
+					<td th:if="${organization.logo != null}">
+						<div th:if="${organization.logo != ''}">
+							<img th:src="*{'data:image/jpeg;base64,'+{organization.logo}}"
+								style="width: 100px; height: 75px;" class="img-thumbnail">
+						</div>
+					</td>
+					<td th:if="${organization.active==true}"><span class="badge">ACTIVA</span></td>
+					<td th:if="${organization.active==false}"><span class="badge">INACTIVA</span></td>
+					<td><a class="btn btn-info btn-sm"
+						th:href="@{/admin/organizacion}">Cancelar</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<footer th:replace="/template/template :: footer"></footer>
+</body>
+</html>

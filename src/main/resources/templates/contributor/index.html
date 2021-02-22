@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Aportantes</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css"
+	th:href="@{/css/admin.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+<body>
+	<header th:include="/template/template :: header"></header>
+	<div class="admin-container">
+		<h2 class="title">APORTANTES</h2>
+		<br>
+		<div class="add-button">
+			<a th:href="@{/admin/aportantes/add}" class="btn btn-primary btn-sm">
+				<i class="fas fa-plus"></i> Agregar Aportante
+			</a>
+		</div>
+		<div class="count" th:if="${contributors.isEmpty()}">
+			<h3>No hay aportantes registrados en la base de datos</h3>
+		</div>
+		<div class="table-responsive">
+			<table class="table" th:if="${!contributors.isEmpty()}">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Correo Electronico</th>
+					<th>Teléfono</th>
+					<th>Provincia</th>
+					<th>Localidad</th>
+					<th>Tipo de Aportante</th>
+					<th>Problematica</th>
+					<th>Iniciativa de Salud</th>
+					<th>Potential</th>
+					<th>Activo</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="contributor:${contributors}">
+					<td th:text="${contributor.name}"></td>
+					<td th:text="${contributor.surname}"></td>
+					<td th:text="${contributor.email}"></td>
+					<td th:text="${contributor.phone}"></td>
+					<td th:text="${contributor.province}"></td>
+					<td th:text="${contributor.location}"></td>
+					<td th:text="${contributor.type}"></td>
+					<td th:text="${contributor.problematic}"></td>
+					<td th:text="${contributor.healthInitiative}"></td>
+					<td th:text="${contributor.potentialContributor}"></td>
+					<td th:text="${contributor.active}"></td>
+					<td><a
+						th:href="@{/admin/aportantes/contributor/}+${contributor.id}"
+						class="btn btn-info btn-sm">Editar</a></td>
+					<td><a  class="btn btn-danger btn-sm" th:href="@{/admin/aportantes/delete/}+${contributor.id}" onclick="return confirm('¿Estas seguro de eliminar?')"
+						>Eliminar</a></td>
+				
+			</tbody>
+		</table>
+		</div>
+	
+
+	<div class="card-footer text-center mb-5">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<nav aria-label="Pagination">
+					<ul class="pagination justify-content-center">
+						<li class="page-item"
+							th:classappend="${previous==0 ? 'disabled' : ''}"><a
+							class="page-link"
+							th:href="@{|/admin/aportantes/?page=${previous}|}"
+							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								<span class="sr-only">Previous</span>
+						</a></li>
+						<li class="page-item" th:each="page:${pages}"
+							th:classappend="${current==page ? 'active' : ''}"><a
+							class="page-link" th:href="@{|/admin/aportantes/?page=${page}|}"
+							th:text="${page}"></a></li>
+
+						<li class="page-item"
+							th:classappend="${current==last ? 'disabled' : ''}"><a
+							class="page-link" th:href="@{|/admin/aportantes/?page=${next}|}"
+							aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+								class="sr-only">Next</span>
+						</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="/template/template :: footer"></footer>
+</body>
+</html>

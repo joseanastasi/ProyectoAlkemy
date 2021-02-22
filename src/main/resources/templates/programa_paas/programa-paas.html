@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+<meta charset="utf-8">
+</head>
+<body>
+	
+	<!-- HEADER -->
+	<div th:replace="fragments :: header"></div>
+	<!-- FIN DEL HEADER -->
+
+<!-- MISSION -->
+	<div class="objetivos text-center pt-3" th:each="organization : ${organizations}">
+		<div class="mission col-6">
+			<i class="fas fa-rocket fa-5x mb-2"></i>
+			<h2>Mision</h2>
+			<p property name="title" length="1234" th:text="${organization.mission}"></p>
+		</div>
+		<div class="vision col-6">
+			<i class="fas fa-bullseye fa-5x mb-2"></i>
+			<h2>Vision</h2>
+			<p property name="title" length="1234" th:text="${organization.vision}"></p>
+		</div>
+	</div>
+<!-- END OF MISSION -->
+
+<!-- VIDEO -->
+	<div class="wrapper mt-5 mb-3">
+		<h1 class="text-center">Testimonios</h1>
+		<div class="videoWrapper">
+			<iframe width="560" height="315"
+				src="https://www.youtube.com/embed/SlJURomgFyA" frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen></iframe>
+		</div>
+	</div>
+	<!-- END OF VIDEO -->
+	
+	<!-- TEAM -->
+	<div><h1 class="text-center">Equipo del Programa Paas</h1></div>
+	<div class="containerTeam">
+			<div class="team" th:each="team : ${teams}" th:if="${team.image != ''}">
+				<h4 class="my-4 text-center" th:text="${team.name} + ' ' + ${team.surname}"></h4>
+				<h3 class= "text-center" th:text="${team.type} + ' ' + ${team.content}"></h3>
+				<img  class="img-fluid" th:src="*{'data:image/jpeg;base64,'+{team.image}}">
+			</div>
+	</div>
+		<br>
+	<!-- END OF TEAM -->
+		
+	<!-- FOOTER -->
+	<div th:replace="fragments :: footer"></div>
+	<!-- END OF FOOTER -->
+
+	<!-- jQuery -->
+	<div th:replace="fragments :: jquery"></div>
+
+</body>
+</html>
+
+

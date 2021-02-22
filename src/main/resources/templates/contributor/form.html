@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Aportantes</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+<body>
+			<header th:include="/template/template :: header"></header>
+			
+	<div class="admin-container">
+		<br>
+		<h2 class="title"> APORTANTES</h2>
+		<form class="admin-form"  th:action="@{/admin/aportantes/}" th:object=${contributor} method="POST">
+			
+			<div class="form-group" style="display: none">
+					<label>Nro</label>
+					<input th:field="*{id}" type="text" class="form-control" />
+			</div>
+			<label for="name">Nombre: </label>
+				<input type="text" class="form-control" id="name" th:field="*{name}" name="name" required> 
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+				
+				<label for="name">Apellido: </label>
+				<input type="text" class="form-control" id="surname" th:field="*{surname}" name="surname" required>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></small>
+
+				<label for="name">Correo Electronico: </label>
+				<input type="email" class="form-control" id="email" th:field="*{email}" name="email" required>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+				
+				<label for="name">Telefono: </label>
+				<input type="text" class="form-control" id="phone" th:field="*{phone}" name="phone" required>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+				
+				<label for="name">Provincia: </label>
+				<input type="text" class="form-control" id="province" th:field="*{province}" name="province" required>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('province')}" th:errors="*{province}"></small>
+				
+				<label for="name">Localidad: </label>
+				<input type="text" class="form-control" id="location" th:field="*{location}" name="location" required>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></small>
+
+				<label for="name">Problematica que atiende: </label>
+				<input type="text" class="form-control" id="problematic" th:field="*{problematic}" name="problematic" required>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('problematic')}" th:errors="*{problematic}"></small>
+	
+				<label for="name">Iniciativa de Salud: </label>
+				<input type="text" class="form-control" id="healthInitiative" th:field="*{healthInitiative}" name="healthInitiative" required>
+				<small class="form-text text-danger" th:if="${#fields.hasErrors('healthInitiative')}" th:errors="*{healthInitiative}"></small>
+						
+										
+						<div class="form-group">
+							<label th:for="type">   Tipo de Aportante</label>
+							<select th:field="*{type}" class="form-control">
+								<option th:each="contributorType : ${contributorType}"
+										th:text="${contributorType.name}"
+										th:value="${contributorType}"></option>
+    						</select>
+						</div>
+						<div class="form-group">
+							<label>   Potential</label>
+							<select th:field="*{potentialContributor}" class="form-control">
+								<option th:each="potentialContributor : ${potentialContributor}"
+	           	 						th:value="${potentialContributor.name}"
+	            						th:text="${potentialContributor}">
+	    						</option>
+    						</select>
+						</div>
+				
+						<label for="active">Activo:</label>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" th:field="*{active}" type="radio" name="active" id="active1" value=1> <label
+								class="form-check-label" for="enabled1"> SI </label>
+						
+							<input class="form-check-input" th:field="*{active}" type="radio" name="active" id="active2" value=0> <label
+								class="form-check-label" for="active2"> NO</label>
+						</div>
+					
+					
+				<div class="action-button">
+					<a class="btn btn-secondary btn-sm" th:href="@{/admin/aportantes}">Cancelar</a>
+					<a class="btn btn-success btn-sm"> <button type="submit">Guardar</button></a>
+				</div>
+			</form>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="/template/template :: footer"></footer>
+</body>
+</html>

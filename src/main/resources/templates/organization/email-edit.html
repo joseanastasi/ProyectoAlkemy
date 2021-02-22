@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Organización</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+
+<body>
+    <header th:include="/template/template :: header"></header>
+    <div class="admin-container">
+        <h2 class="title"> EDITAR ORGANIZACION CORREO ELECTRONICO</h2>
+        <br>
+        <form class="admin-form" th:action="@{/admin/organizacion/save/email}" th:object="${organization}" method="post"
+            enctype="multipart/form-data">
+<input style="display: none;" type="hidden" th:field="*{id}" name="id" id="id">
+  <label for="name">Servidor SMTP: </label>  <input type="text" class="form-control" id="emailServer" th:field="*{emailServer}" name="emailServer">
+  <small class="form-text text-danger" th:if="${#fields.hasErrors('emailServer')}" th:errors="*{emailServer}"></small>
+<label  for="name">Puerto: </label>
+<input type="text" class="form-control" id="emailServerPort" th:field="*{emailServerPort}" name="emailServerPort">
+<small class="form-text text-danger" th:if="${#fields.hasErrors('emailServerPort')}" th:errors="*{emailServerPort}"></small>
+<label  for="name">Usuario: </label>
+ <input type="text" class="form-control" id="emailUser" th:field="*{emailUser}" name="emailUser">
+ <small class="form-text text-danger" th:if="${#fields.hasErrors('emailUser')}" th:errors="*{emailUser}"></small>
+ <label  for="name">Contraseña: </label>
+ <input type="text" class="form-control" id="emailPassword" th:field="*{emailPassword}" name="emailPassword">
+ <small class="form-text text-danger" th:if="${#fields.hasErrors('emailPassword')}" th:errors="*{emailPassword}"></small>
+         
+        
+ <input type="hidden" th:field="*{id}" name="id" id="id">
+
+<input style="display: none;" type="text" class="form-control" id="name" th:field="*{name}" name="name"
+            required>
+<input style="display: none;" type="hidden" th:field="*{id}" name="id" id="id">
+<input style="display: none;" type="hidden" th:field="*{logo}" name="logo" id="logo">
+        
+<textarea  style="display: none;"  rows="3" cols="100%" name="vision" th:field="*{vision}"> </textarea> 
+<textarea  style="display: none;"  rows="3" cols="100" name="mission" th:field="*{mission}" > </textarea>
+<input style="display: none;" type="text" class="form-control" id="email" th:field="*{email}" name="email">
+<input style="display: none;"  type="text" class="form-control" id="phone" th:field="*{phone}" name="phone">
+<input style="display: none;" type="text" class="form-control" id="address" th:field="*{address}" name="address">
+<input style="display: none;" class="form-check-input" th:field="*{active}" type="radio" name="active" id="active1" value=1>
+    
+<br>
+            <div class="action-button">
+                <a class="btn btn-secondary btn-sm" th:href="@{/admin/organizacion/email}">Cancelar</a>
+                <a class="btn btn-success btn-sm"> <button type="submit">Guardar</button></a>
+    </div>
+  </form>
+    </div>
+    <br>
+    <br>
+    <br>
+    <footer th:replace="/template/template :: footer"></footer>
+</body>
+
+</html>

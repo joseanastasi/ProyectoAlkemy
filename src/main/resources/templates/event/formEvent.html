@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Evento</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="../../static/css/admin.css"
+	th:href="@{/css/admin.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+<script
+	src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+</head>
+
+<body>
+
+	<header th:include="/template/template :: header"></header>
+	<div class="admin-container">
+	
+		<h2 class="title">EVENTOS</h2>
+
+		<form class="admin-form" th:action="@{/admin/eventos/save}"
+			th:object="${event}" method="post" enctype="multipart/form-data">
+			<br> 
+		<label for="title">Titulo</label> <input type="text" class="form-control" id="title" th:field="*{title}" name="title" required> 
+				<input type="hidden" th:field="*{id}" name="id"
+				id="id"><input type="hidden" th:field="*{image}"> 
+			<label for="title">Tipo de evento</label> <input type="text"
+				class="form-control" id="eventType" th:field="*{eventType}"
+				name="eventType" required> 
+				<br>
+				 <label for="title">Imagen</label>
+			<input class="form-control" style="height: 35px;" type="file"
+				name="file" id="imageFile" accept="image/*" /> <small
+				class="form-text text-danger" th:text="${messageImageFile}">
+			</small>
+			<div th:if="${event.image != null}">
+				<div th:if="${event.image != ''}">
+					<h6>Imagen guardada</h6>
+					<img th:src="*{'data:image/jpeg;base64,'+{image}}"
+						style="width: 50px; height: 50px;" class="img-thumbnail">
+				</div>
+			</div>
+			 <label for="title">Contenido</label> <input type="text"
+				class="form-control" id="content" th:field="*{content}"
+				name="content" required> <label for="title">Dirección</label>
+			<input type="text" class="form-control" id="address"
+				th:field="*{address}" name="address" required>  <label
+				for="title">Fecha de inicio</label> <input type="date"
+				class="form-control" id="startDate" th:field="*{startDate}"
+				name="startDate" required>  <label for="title">Fecha
+				de cierre</label> <input type="date" class="form-control" id="endDate"
+				th:field="*{endDate}" name="endDate" required>  <label
+				for="title">Numero de beneficiarios</label> <input type="number"
+				class="form-control" id="numberOfBeneficiaries"
+				th:field="*{numberOfBeneficiaries}" name="numberOfBeneficiaries"
+				required><br> <label for="title">Inscriptos:</label><input
+				type="hidden" class="form-control" id="enrolled"
+				th:field="*{enrolled}" name="enrolled"> <label
+				th:text="*{enrolled}"></label> <br> <label class=""
+				for="active">HABILITAR:</label>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" th:field="*{active}" type="radio"
+					name="active" id="active1" value=1> <label
+					class="form-check-label" for="enabled1"> SI </label> <input
+					class="form-check-input" th:field="*{active}" type="radio"
+					name="active" id="active2" value=0> <label
+					class="form-check-label" for="active2"> NO</label>
+			</div>
+			<div class="action-button">
+				<a class="btn btn-secondary btn-sm" th:href="@{/admin/eventos}">Cancelar</a>
+				<a class="btn btn-success btn-sm"> <button type="submit">Guardar</button></a>
+
+			</div>
+		</form>
+		<br>
+	</div>
+
+	<footer th:replace="/template/template :: footer"></footer>
+	<script type="text/javascript">
+		const MAX_SIZE_BYTES = 4194304;
+		const $imageFile = document.querySelector("#imageFile");
+
+		$imageFile
+				.addEventListener(
+						"change",
+						function() {
+
+							var file = this.files[0];
+							if (file.size > MAX_SIZE_BYTES) {
+								const SIZE_MB = MAX_SIZE_BYTES / 1048576;
+								var sizeImageMB = (file.size / 1048576)
+										.toFixed(2);
+								alert(`El tamaño máximo permitido de la imagen es ${SIZE_MB}MB. La imagen cargada tiene un tamaño de ${sizeImageMB}MB`);
+								$imageFile.value = "";
+							}
+						});
+	</script>
+</body>
+</html>
